@@ -43,13 +43,13 @@
             </p>
 
             <p class="control has-icon has-icon-left">
-              <input class="input" type="text" placeholder="Mobile Phone">
-              <i class="fa fa-mobile" aria-hidden="true"></i>
+              <input class="input" type="text" placeholder="Current Website URL">
+              <i class="fa fa-globe" aria-hidden="true"></i>
             </p>
 
             <p class="control has-icon has-icon-left">
-              <input class="input" type="text" placeholder="Home Phone">
-              <i class="fa fa-phone" aria-hidden="true"></i>
+              <input class="input" type="text" placeholder="Current Website URL">
+              <i class="fa fa-globe" aria-hidden="true"></i>
             </p>
           </div>
 
@@ -58,18 +58,35 @@
           </p>
       </div>
     </div>
+            <button class="button is-fullwidth is-primary">Submit</button>
+          </p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+
+const apiUrl = 'http://json-data.herokuapp.com/forms';
+
 export default {
   data() {
     return {
+      formInputs: [],
+      formValues: [],
+      apiUrl,
     };
   },
 
   methods: {
-
+    getData() {
+      fetch(apiUrl)
+      .then((r) => r.json())
+      .then((formInputs) => {
+        this.formInputs = formInputs;
+      })
+    },
+    submitForm() {},
   },
 };
 </script>
