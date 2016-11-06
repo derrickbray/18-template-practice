@@ -5,7 +5,6 @@
       <div class="panel is-fullwidth">
         <h2 class="panel-heading title">Sign Up For My Web App</h2>
 
-
         <div class="panel-block">
 
           <p v-for="item in formInputs" v-if="item.type !== 'select' && item.type !== 'textarea'" class="control has-icon has-icon-left">
@@ -13,16 +12,16 @@
             <i :class="item.icon"  class="fa" aria-hidden="true"></i>
           </p>
 
-          <p v-for="item in formInputs" v-if="item.type == 'select'" class="control has-icon has-icon-left">
-            <span class="select is-fullwidth">
+            <p v-for="item in formInputs" v-if="item.type == 'select'" v-model="formValues[formInputs.id]" class="control has-icon has-icon-left">
+              <span class="select is-fullwidth">
                 <select>
-                  <option v-for="option in item.options" :placeholder="item.label">{{ option.label }}</option>
+                  <option v-for="option in item.options" :placeholder="item.label" value="">{{ option.label }}</option>
                 </select>
               </span>
-          </p>
+            </p>
 
           <p v-for="item in formInputs" v-if="item.type == 'textarea'" class="control has-icon has-icon-left">
-            <textarea class="textarea input" placeholder="Your Comments"></textarea>
+            <textarea class="textarea input" :placeholder="item.label"></textarea>
             <i class="fa" :class="item.icon" aria-hidden="true"></i>
           </p>
 
@@ -61,7 +60,19 @@ export default {
         this.formInputs = formInputs;
       });
     },
-    submitForm() {},
+    submitForm(formValues) {
+      fetch('http://tiny-tn.herokuapp.com/collections/form-derrick',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.formValues)
+      })
+      .then(() => {
+        console.log(formValues);
+        this.formValues = formValues;
+      });
+    },
   },
 };
 </script>
