@@ -43,7 +43,9 @@ export default {
   data() {
     return {
       formInputs: [],
-      formValues: {},
+      formValues: {
+        id: '',
+      },
       apiUrl,
     };
   },
@@ -69,7 +71,7 @@ export default {
         body: JSON.stringify(this.formValues)
       })
       .then(() => {
-        this.formValues = formValues;
+        this.formValues = [formValues, ...formValues];
         console.log(formValues);
       });
     },
