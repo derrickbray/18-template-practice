@@ -5,26 +5,27 @@
       <div class="panel is-fullwidth">
         <h2 class="panel-heading title">Sign Up For My Web App</h2>
 
+
         <div class="panel-block">
-          <p class="control has-icon has-icon-left">
+
+          <p v-for="item in formInputs" v-if="item.type !== 'select' && item.type !== 'textarea'" class="control has-icon has-icon-left">
+            <input class="input" type="text" :placeholder="item.label">
+            <i :class="item.icon"  class="fa" aria-hidden="true"></i>
+          </p>
+
+          <p v-for="item in formInputs" v-if="item.type == 'select'" class="control has-icon has-icon-left">
             <span class="select is-fullwidth">
                 <select>
-                  <option value="">English</option>
-                  <option>Klingon</option>
-                  <option>Pig-Latin</option>
+                  <option v-for="option in item.options" :placeholder="item.label">{{ option.label }}</option>
                 </select>
               </span>
           </p>
 
-          <p class="control has-icon has-icon-left">
+          <p v-for="item in formInputs" v-if="item.type == 'textarea'" class="control has-icon has-icon-left">
             <textarea class="textarea input" placeholder="Your Comments"></textarea>
-            <i class="fa fa-comments" aria-hidden="true"></i>
+            <i class="fa" :class="item.icon" aria-hidden="true"></i>
           </p>
 
-          <p class="control has-icon has-icon-left">
-            <input class="input" type="text" placeholder="Current Website URL">
-            <i class="fa fa-globe" aria-hidden="true"></i>
-          </p>
         </div>
 
         <p class="control is-fullwidth">
@@ -49,7 +50,7 @@ export default {
   },
 
   mounted() {
-    this.getData;
+    this.getData();
   },
 
   methods: {
@@ -58,7 +59,7 @@ export default {
       .then((r) => r.json())
       .then((formInputs) => {
         this.formInputs = formInputs;
-      };
+      });
     },
     submitForm() {},
   },
