@@ -2,7 +2,7 @@
 <template lang="html">
   <div class="section">
     <div class="container">
-      <form class="panel is-fullwidth" @submit.preventDefault="submitForm">
+      <form class="panel is-fullwidth" @submit.prevent="submitForm">
         <h2 class="panel-heading title">Sign Up For My Web App</h2>
 
         <div class="panel-block">
@@ -16,7 +16,7 @@
             <span class="select is-fullwidth">
               <select v-model="formValues[item.id]">
                 <option :value="undefined">{{ item.label }}</option>
-                <option v-for="option in item.options"  value="">{{ option.label }}</option>
+                <option v-for="option in item.options"  :value="option.value">{{ option.label }}</option>
               </select>
             </span>
           </p>
